@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Shah - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Jigar Shah</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm Jigar Shah, a Master's student in Computer Science at San Jose State University. I have a strong background in software development, cloud computing, and artificial intelligence. I am passionate about building innovative solutions and have experience working with technologies like Python, Java, AWS, and React.js.</p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <button id="toggleSkills">Show Skills</button>
+        <ul id="skillsList">
+            <li><i class="fas fa-code"></i> Python</li>
+            <li><i class="fas fa-code"></i> Java</li>
+            <li><i class="fas fa-cloud"></i> AWS</li>
+            <li><i class="fab fa-react"></i> React.js</li>
+            <li><i class="fas fa-brain"></i> Machine Learning</li>
+            <li><i class="fas fa-vr-cardboard"></i> AR/VR Development</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <span id="nameError" class="error"></span>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <span id="emailError" class="error"></span>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+            <span id="messageError" class="error"></span>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <button id="themeToggle"><i class="fas fa-moon"></i> Toggle Theme</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
