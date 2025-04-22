@@ -1,0 +1,63 @@
+1.
+
+use myLibrary
+db.createCollection("books")
+
+
+2. 
+
+db.books.insertOne({
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "publishedYear": 1960,
+    "genres": ["Fiction", "Classic"]
+})
+
+db.books.insertMany([
+    {
+        "title": "1984",
+        "author": "George Orwell",
+        "publishedYear": 1949,
+        "genres": ["Dystopian", "Science Fiction"]
+    },
+    {
+        "title": "Moby-Dick",
+        "author": "Herman Melville",
+        "publishedYear": 1851,
+        "genres": ["Adventure", "Classic"]
+    }
+])
+
+
+
+3. 
+
+db.books.find()
+
+db.books.find({ "author": "Harper Lee" })
+
+db.books.find({ "publishedYear": { "$gt": 1950 } })
+
+
+
+4.
+
+db.books.updateOne(
+    { "title": "1984" },
+    { "$set": { "publishedYear": 1950 } }
+)
+
+
+db.books.updateMany(
+    { "publishedYear": { "$lt": 1960 } },
+    { "$set": { "rating": 5 } }
+)
+
+
+
+5. 
+
+db.books.deleteOne({ "title": "Moby-Dick" })
+
+db.books.deleteMany({ "genres": "Classic" })
+

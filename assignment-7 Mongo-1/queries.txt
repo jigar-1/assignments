@@ -1,0 +1,117 @@
+1.
+
+db.orders.aggregate([
+    {
+        $lookup: {
+            from: "customers",
+            localField: "customerId",
+            foreignField: "_js",
+            as: "customerDetails"
+        }
+    },
+    {
+        $unwind: "$customerDetails"
+    }
+])
+
+
+
+2.
+
+db.products.aggregate([
+    {
+        $lookup: {
+            from: "reviews",
+            localField: "_js",
+            foreignField: "productId",
+            as: "productReviews"
+        }
+    }
+])
+
+
+
+3.
+
+db.customers.find({
+    email: { $regex: /example\.com$/ }
+})
+
+
+4.
+
+db.products.find({
+    category: "Electronics",
+    inStock: true
+})
+
+
+5.
+
+db.products.find({
+    $or: [
+        { category: "Electronics" },
+        { price: { $lt: 200 } }
+    ]
+})
+
+
+6.
+
+db.orders.aggregate([
+    {
+        $group: {
+            _id: "$customerId",
+            totalQuantity: { $sum: "$quantity" }
+        }
+    }
+])
+
+
+7.
+
+db.orders.aggregate([
+    {
+        $lookup: {
+            from: "customers",
+            localField: "customerId",
+            foreignField: "_js",
+            as: "customerDetails"
+        }
+    },
+    {
+        $unwind: "$customerDetails"
+    },
+    {
+        $group: {
+            _id: "$customerId",
+            totalQuantity: { $sum: "$quantity" },
+            customerDetails: { $first: "$customerDetails" }
+        }
+    }
+])
+
+
+8.
+
+db.reviews.aggregate([
+    {
+        $group: {
+            _id: "$productId",
+            averageRating: { $avg: "$rating" }
+        }
+    },
+    {
+        $sort: { averageRating: -1 }
+    },
+    {
+        $limit: 3
+    }
+])
+
+
+9.
+
+db.reviews.find({
+    comment: { $regex: /excellent/i }
+})

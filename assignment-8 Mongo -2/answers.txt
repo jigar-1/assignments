@@ -1,0 +1,98 @@
+1.
+
+db.employees.aggregate([
+  {
+    $project: {
+      name: 1,
+      department: 1,
+      total_projects: { $size: "$projects" }
+    }
+  }
+])
+
+
+
+2.
+
+db.employees.aggregate([
+  {
+    $project: {
+      name: 1,
+      department: 1,
+      years_with_company: {
+        $divide: [
+          { $subtract: [new Date(), "$hire_date"] },
+          1000 * 60 * 60 * 24 * 365
+        ]
+      }
+    }
+  }
+])
+
+
+3.
+
+db.employees.aggregate([
+  {
+    $project: {
+      name: 1,
+      department: 1,
+      total_project_duration_days: {
+        $sum: {
+          $map: {
+            input: "$projects",
+            as: "project",
+            in: {
+              $divide: [
+                { $subtract: ["$$project.end_date", "$$project.start_date"] },
+                1000 * 60 * 60 * 24
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+])
+
+
+5.
+
+# Import data.json
+mongoimport --db your_database_name --collection employees --file data.json --jsonArray
+
+# Export to backup.json
+mongoexport --db your_database_name --collection employees --out backup.json --jsonArray
+
+
+6.
+# Dump BSON file
+mongodump --db your_database_name --collection employees --out /path/to/dump
+
+# Import BSON file
+mongorestore --db your_database_name /path/to/dump/your_database_name/employees.bson
+
+
+7.
+
+// Create: Add new employee records
+db.employees.insertOne({
+  name: "New Employee",
+  age: 29,
+  department: "HR",
+  salary: 48000,
+  hire_date: new Date(),
+  projects: []
+})
+
+// Read: View employee details
+db.employees.find({ name: "John Doe" })
+
+// Update: Modify existing employee records
+db.employees.updateOne(
+  { name: "John Doe" },
+  { $set: { salary: 52000 } }
+)
+
+// Delete: Remove employee records
+db.employees.deleteOne({ name: "John Doe" })
